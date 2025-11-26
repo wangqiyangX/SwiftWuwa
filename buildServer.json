@@ -1,0 +1,19 @@
+{
+	"name": "xcode build server",
+	"version": "0.2",
+	"bspVersion": "2.0",
+	"languages": [
+		"c",
+		"cpp",
+		"objective-c",
+		"objective-cpp",
+		"swift"
+	],
+	"argv": [
+		"/opt/homebrew/bin/xcode-build-server"
+	],
+	"workspace": "/Users/wangqiyang/Development/SwiftWuwa/SwiftWuwa.xcodeproj/project.xcworkspace",
+	"build_root": "/Users/wangqiyang/Library/Developer/Xcode/DerivedData/SwiftWuwa-aybkcmirlcuzkvcwgyjpeknapqkf",
+	"scheme": "SwiftWuwa",
+	"kind": "xcode"
+}
