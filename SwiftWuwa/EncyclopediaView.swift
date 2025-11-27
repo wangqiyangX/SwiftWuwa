@@ -55,6 +55,11 @@ struct EncyclopediaView: View {
                                     characterId: previewItem.itemId
                                 )
                             }
+                            if viewModel.selectedCategory == .weapons {
+                                WeaponDetailsView(
+                                    weaponId: previewItem.itemId
+                                )
+                            }
                         } label: {
                             ZStack(alignment: .topTrailing) {
                                 VStack {

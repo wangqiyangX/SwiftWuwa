@@ -90,9 +90,9 @@ class StrategyCollectionScraper {
             var items: [StrategyCollectionItem] = []
             if let itemElements = try? doc.select("div.entry-wrapper") {
                 for itemElement in itemElements {
-                    let title = try? itemElement.select("div.card-footer")
+                    let title = try itemElement.select("div.card-footer")
                         .text()
-                    let cover = try? itemElement.select(
+                    let cover = try itemElement.select(
                         "div.card-content-inner img"
                     ).attr(
                         "data-src"
@@ -116,7 +116,7 @@ class StrategyCollectionScraper {
                     }
                     let item = StrategyCollectionItem(
                         title: title,
-                        cover: URL(string: cover ?? ""),
+                        cover: URL(string: cover),
                         itemId: itemId
                     )
 

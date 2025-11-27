@@ -660,6 +660,8 @@ struct CharacterDetailsView: View {
     @State private var selectedSkillType: SkillType = .normalAttack
     @State private var selectedBreakthroughLevel: BreakthroughLevel = .first
 
+    @Environment(\.openURL) private var openURL
+
     var body: some View {
         NavigationStack {
             List {
@@ -1395,6 +1397,20 @@ struct CharacterDetailsView: View {
                 }
             }
             .listStyle(.sidebar)
+            .toolbar {
+                ToolbarItem {
+                    Button {
+                        openURL(
+                            URL(
+                                string:
+                                    "https://wiki.kurobbs.com/mc/item/\(characterId)"
+                            )!
+                        )
+                    } label: {
+                        Label("原网页", systemImage: "safari")
+                    }
+                }
+            }
         }
     }
 }

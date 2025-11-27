@@ -12,6 +12,7 @@ import SwiftUI
 struct CharacterGuideView: View {
     let characterId: String
     @State private var viewModel = CharacterGuideViewModel()
+    @Environment(\.openURL) private var openURL
 
     var body: some View {
         NavigationStack {
@@ -101,6 +102,62 @@ struct CharacterGuideView: View {
                             }
                         }
                     }
+                    Section("声骸推荐") {
+                        if let voiceSetRecommendations = characterGuide
+                            .voiceSetRecommendations
+                        {
+                            ScrollView(.horizontal) {
+                                LazyHStack(spacing: 8) {
+                                    ForEach(voiceSetRecommendations, id: \.id) {
+                                        voiceSet in
+                                        if let icons = voiceSet.icons {
+                                            ForEach(icons, id: \.self) {
+                                                icon in
+                                                VStack {
+                                                    KFImage(icon)
+                                                        .placeholder {
+                                                            ProgressView()
+                                                                .frame(
+                                                                    maxWidth:
+                                                                        .infinity
+                                                                )
+                                                        }
+                                                        .resizable()
+                                                        .aspectRatio(
+                                                            contentMode: .fit
+                                                        )
+                                                        .frame(
+                                                            width: 80,
+                                                            height: 100
+                                                        )
+                                                    Text(
+                                                        voiceSet.name ?? ""
+                                                    )
+                                                    .font(.caption)
+                                                    .foregroundStyle(.secondary)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .scrollIndicators(.hidden)
+                            ForEach(voiceSetRecommendations, id: \.id) {
+                                voiceSet in
+                                if let description = voiceSet.description,
+                                    !description.isEmpty
+                                {
+                                    LabeledContent {
+                                        Text(description)
+                                    } label: {
+                                        if let name = voiceSet.name {
+                                            Text(name)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
             .navigationTitle(viewModel.characterGuide?.name ?? "")
@@ -111,6 +168,20 @@ struct CharacterGuideView: View {
             .overlay {
                 if viewModel.isLoading {
                     ProgressView()
+                }
+            }
+            .toolbar {
+                ToolbarItem {
+                    Button {
+                        openURL(
+                            URL(
+                                string:
+                                    "https://wiki.kurobbs.com/mc/item/\(characterId)"
+                            )!
+                        )
+                    } label: {
+                        Label("原网页", systemImage: "safari")
+                    }
                 }
             }
         }
@@ -129,6 +200,7 @@ struct CharacterGuide {
     let skillPointRecommendation: String?
     let coreMechanism: String?
     let outputProcess: [String: String]?
+    let voiceSetRecommendations: [VoiceSetRecommendation]?
 
     init(
         name: String? = nil,
@@ -140,7 +212,8 @@ struct CharacterGuide {
         fightingStyles: [FightingStyle]? = nil,
         skillPointRecommendation: String? = nil,
         coreMechanism: String? = nil,
-        outputProcess: [String: String]? = nil
+        outputProcess: [String: String]? = nil,
+        voiceSetRecommendations: [VoiceSetRecommendation]? = nil
     ) {
         self.name = name
         self.description = description
@@ -152,6 +225,27 @@ struct CharacterGuide {
         self.skillPointRecommendation = skillPointRecommendation
         self.coreMechanism = coreMechanism
         self.outputProcess = outputProcess
+        self.voiceSetRecommendations = voiceSetRecommendations
+    }
+}
+
+struct VoiceSetRecommendation {
+    let id = UUID()
+    var name: String?
+    var attrIcon: URL?
+    var icons: [URL?]?
+    var description: String?
+
+    init(
+        name: String? = nil,
+        attrIcon: URL? = nil,
+        icons: [URL?]? = nil,
+        description: String? = nil
+    ) {
+        self.name = name
+        self.attrIcon = attrIcon
+        self.icons = icons
+        self.description = description
     }
 }
 
@@ -272,6 +366,46 @@ class CharacterGuideScraper {
                     }
                 }
 
+                // 声骸套装推荐
+                let voiceSetRecommendationRows = try mainElement.select(
+                    "div.module-layout > div:nth-child(4) > div.component-container > div > div > div.component-content.component-content-tabs-component > div > div:nth-child(1) > table > tbody > tr"
+                )
+
+                var voiceSetRecommendations: [VoiceSetRecommendation] = []
+
+                for row in voiceSetRecommendationRows {
+                    let cells = try row.select("td")
+
+                    let voiceSetRecommendationAttrIcon = try cells[0]
+                        .select("img").attr(
+                            "src"
+                        )
+
+                    let voiceSetRecommendationName = try cells[0].text()
+
+                    let voiceSetRecommendationIcons = try cells[1].select(
+                        "img"
+                    ).map(
+                        { try $0.attr("src") }
+                    )
+
+                    let voiceSetRecommendationDescription = try cells[1]
+                        .text()
+
+                    voiceSetRecommendations.append(
+                        VoiceSetRecommendation(
+                            name: voiceSetRecommendationName,
+                            attrIcon: URL(
+                                string: voiceSetRecommendationAttrIcon
+                            ),
+                            icons: voiceSetRecommendationIcons.map(
+                                { URL(string: $0) }
+                            ),
+                            description: voiceSetRecommendationDescription
+                        )
+                    )
+                }
+
                 return CharacterGuide(
                     name: name,
                     description: description,
@@ -282,7 +416,8 @@ class CharacterGuideScraper {
                     fightingStyles: fightingStyles,
                     skillPointRecommendation: skillPointRecommendation,
                     coreMechanism: coreMechanism,
-                    outputProcess: outputProcess
+                    outputProcess: outputProcess,
+                    voiceSetRecommendations: voiceSetRecommendations
                 )
             }
 

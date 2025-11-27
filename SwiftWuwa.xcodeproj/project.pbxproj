@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB6058882ED817EA00159CA1 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = FB6058872ED817EA00159CA1 /* Nuke */; };
+		FB60588A2ED817EA00159CA1 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = FB6058892ED817EA00159CA1 /* NukeUI */; };
+		FB60588D2ED8224800159CA1 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FB60588C2ED8224800159CA1 /* SDWebImageSwiftUI */; };
 		FB7F92FD2ED43F1B00B0BD3E /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = FB7F92FC2ED43F1B00B0BD3E /* SwiftSoup */; };
 		FB7F93052ED43FC300B0BD3E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FB7F93042ED43FC300B0BD3E /* Alamofire */; };
 		FB7F93142ED45A4C00B0BD3E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FB7F93132ED45A4C00B0BD3E /* Kingfisher */; };
@@ -71,9 +74,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB60588D2ED8224800159CA1 /* SDWebImageSwiftUI in Frameworks */,
+				FB60588A2ED817EA00159CA1 /* NukeUI in Frameworks */,
 				FB7F93142ED45A4C00B0BD3E /* Kingfisher in Frameworks */,
 				FB7F92FD2ED43F1B00B0BD3E /* SwiftSoup in Frameworks */,
 				FB7F93052ED43FC300B0BD3E /* Alamofire in Frameworks */,
+				FB6058882ED817EA00159CA1 /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +143,9 @@
 				FB7F92FC2ED43F1B00B0BD3E /* SwiftSoup */,
 				FB7F93042ED43FC300B0BD3E /* Alamofire */,
 				FB7F93132ED45A4C00B0BD3E /* Kingfisher */,
+				FB6058872ED817EA00159CA1 /* Nuke */,
+				FB6058892ED817EA00159CA1 /* NukeUI */,
+				FB60588C2ED8224800159CA1 /* SDWebImageSwiftUI */,
 			);
 			productName = SwiftWuwa;
 			productReference = FB7F92CC2ED43EAF00B0BD3E /* SwiftWuwa.app */;
@@ -224,6 +233,8 @@
 				FB7F92FB2ED43F1B00B0BD3E /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				FB7F93032ED43FC300B0BD3E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				FB7F93122ED45A4C00B0BD3E /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				FB6058862ED817EA00159CA1 /* XCRemoteSwiftPackageReference "Nuke" */,
+				FB60588B2ED8224800159CA1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FB7F92CD2ED43EAF00B0BD3E /* Products */;
@@ -669,6 +680,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		FB6058862ED817EA00159CA1 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.8.0;
+			};
+		};
+		FB60588B2ED8224800159CA1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.4;
+			};
+		};
 		FB7F92FB2ED43F1B00B0BD3E /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
@@ -696,6 +723,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FB6058872ED817EA00159CA1 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB6058862ED817EA00159CA1 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		FB6058892ED817EA00159CA1 /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB6058862ED817EA00159CA1 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
+		};
+		FB60588C2ED8224800159CA1 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB60588B2ED8224800159CA1 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
 		FB7F92FC2ED43F1B00B0BD3E /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FB7F92FB2ED43F1B00B0BD3E /* XCRemoteSwiftPackageReference "SwiftSoup" */;

@@ -14,14 +14,17 @@ struct ContentView: View {
 
     var body: some View {
         TabView {
-            Tab("库", systemImage: "tray") {
-                Text("库")
+            Tab("收藏夹", systemImage: "tray") {
+                Text("收藏夹")
             }
             Tab("游戏图鉴", systemImage: "plus.square.on.square") {
                 EncyclopediaView()
             }
             Tab("攻略合集", systemImage: "book") {
                 StrategyCollectionView()
+            }
+            Tab("影像合集", systemImage: "photo.on.rectangle") {
+                MediaCollectionView()
             }
             Tab("设置", systemImage: "gearshape") {
                 Text("设置")
