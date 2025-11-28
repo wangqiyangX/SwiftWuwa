@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         TabView {
             Tab("收藏夹", systemImage: "tray") {
-                Text("收藏夹")
+                LibraryView()
             }
             Tab("游戏图鉴", systemImage: "plus.square.on.square") {
                 EncyclopediaView()
@@ -30,6 +30,7 @@ struct ContentView: View {
                 Text("设置")
             }
         }
+        .tabViewStyle(.sidebarAdaptable)
     }
 }
 

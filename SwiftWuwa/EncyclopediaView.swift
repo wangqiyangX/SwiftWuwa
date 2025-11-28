@@ -1,5 +1,6 @@
 import Combine
 import Kingfisher
+import SwiftData
 import SwiftUI
 
 @Observable
@@ -40,6 +41,7 @@ class EncyclopediaViewModel {
 
 struct EncyclopediaView: View {
     @State private var viewModel = EncyclopediaViewModel()
+    @Environment(\.modelContext) private var modelContext
 
     var body: some View {
         NavigationStack {
@@ -89,6 +91,20 @@ struct EncyclopediaView: View {
                             }
                         }
                         .buttonStyle(.plain)
+                        .contextMenu {
+                            Button {
+                                let item = Item(
+                                    name: previewItem.name,
+                                    imageURL: previewItem.imageURL,
+                                    itemId: previewItem.itemId,
+                                    tabType: "Encyclopedia",
+                                    subType: viewModel.selectedCategory.rawValue
+                                )
+                                modelContext.insert(item)
+                            } label: {
+                                Label("Save", systemImage: "heart")
+                            }
+                        }
                     }
                 }
                 .padding()

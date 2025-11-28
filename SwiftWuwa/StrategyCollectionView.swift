@@ -6,11 +6,13 @@
 //
 
 import Kingfisher
+import SwiftData
 import SwiftSoup
 import SwiftUI
 
 struct StrategyCollectionView: View {
     @State private var viewModel = StrategyCollectionViewModel()
+    @Environment(\.modelContext) private var modelContext
 
     var body: some View {
         NavigationStack {
@@ -40,6 +42,19 @@ struct StrategyCollectionView: View {
                             }
                         }
                         .buttonStyle(.plain)
+                        .contextMenu {
+                            Button {
+                                let item = Item(
+                                    name: item.title,
+                                    imageURL: item.cover,
+                                    tabType: "StrategyCollection",
+                                    subType: "角色攻略"
+                                )
+                                modelContext.insert(item)
+                            } label: {
+                                Label("Save", systemImage: "heart")
+                            }
+                        }
                     }
                 }
                 .padding()

@@ -10,9 +10,26 @@ import SwiftData
 
 @Model
 final class Item {
-    var timestamp: Date
-    
-    init(timestamp: Date) {
-        self.timestamp = timestamp
+    var id: UUID
+    var name: String?
+    var imageURL: URL?
+    var itemId: String?
+    var tabType: String
+    var subType: String
+
+    init(
+        id: UUID = UUID(),
+        name: String? = nil,
+        imageURL: URL? = nil,
+        itemId: String? = nil,
+        tabType: String,
+        subType: String
+    ) {
+        self.id = id
+        self.name = name
+        self.imageURL = imageURL
+        self.itemId = itemId
+        self.tabType = tabType
+        self.subType = subType
     }
 }

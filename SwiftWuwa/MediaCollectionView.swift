@@ -81,9 +81,9 @@ struct MediaCollectionView: View {
                                     } else if selectedMediaType == .emoticon {
                                         EmoticonDetailsView(itemId: itemId)
                                     } else if selectedMediaType == .wallpaper {
-                                         WallpaperDetailsView(itemId: itemId)
+                                        WallpaperDetailsView(itemId: itemId)
                                     } else if selectedMediaType == .versionPV {
-                                        // VersionPVDetailsView(itemId: itemId)
+                                        VersionPVDetailsView(itemId: itemId)
                                     } else if selectedMediaType == .characterPV {
                                         // CharacterPVDetailsView(itemId: itemId)
                                     } else if selectedMediaType == .characterCombatDemo {
