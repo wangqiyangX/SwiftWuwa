@@ -14,3 +14,6 @@ SwiftWuwa 是一款基于 SwiftUI 开发的鸣潮辅助应用，用于帮助玩�
 
 ## 项目截图
 
+<img src="IMG/Screenshot-1.png" width="200">
+<img src="IMG/Screenshot-2.png" width="200">
+<img src="IMG/Screenshot-3.png" width="200">
